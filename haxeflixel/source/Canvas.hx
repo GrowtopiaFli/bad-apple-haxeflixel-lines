@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.util.FlxColor;
 import flixel.math.FlxPoint;
+import flixel.util.FlxSpriteUtil;
 
 using flixel.util.FlxSpriteUtil;
 
@@ -22,21 +23,29 @@ class Canvas extends FlxSprite
 	override public function draw()
 	{
 		this.fill(0);
+		var old = FlxG.stage.quality;
+		FlxG.stage.quality = openfl.display.StageQuality.LOW;
+
+		var lineStyle = FlxSpriteUtil.getDefaultLineStyle({
+			thickness: 3,
+			color: col
+		});
+
 		for (lines in contours)
 		{
 			// var vertices:Array<FlxPoint> = [];
-			
-			for (i in 1...lines.length)
-			{
-				var p1:Array<Int> = lines[i - 1];
-				var p2:Array<Int> = lines[i];
-				this.drawLine(p1[0], p1[1], p2[0], p2[1],
+
+			if(lines.length > 1) {
+				FlxSpriteUtil.beginDraw(0x0, lineStyle);
+				FlxSpriteUtil.flashGfx.moveTo(lines[0][0], lines[0][1]);
+				for (i in 1...lines.length)
 				{
-					thickness: 3,
-					color: col
-				});
+					var p2:Array<Int> = lines[i];
+					FlxSpriteUtil.flashGfx.lineTo(p2[0], p2[1]);
+				}
+				FlxSpriteUtil.endDraw(this, null);
 			}
-			
+
 			/*
 			for (i in 0...lines.length)
 			{
@@ -45,6 +54,7 @@ class Canvas extends FlxSprite
 			this.drawPolygon(vertices, FlxColor.WHITE);
 			*/
 		}
+		FlxG.stage.quality = old;
 		super.draw();
 	}
 }
