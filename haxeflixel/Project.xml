@@ -2,7 +2,7 @@
 <project>
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Bad Apple" file="BadAppleThing" packageName="com.gwebdev.badapplething" package="com.gwebdev.badapplething" main="Main" version="1.0.0" company="GWebDev" />
+	<app title="Bad Apple" file="BadAppleThing" packageName="com.gwebdev.badapplething" package="com.gwebdev.badapplething" main="Main" version="1.0.2" company="GWebDev" />
 
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
 		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
@@ -16,7 +16,7 @@
 	<!--These window settings apply to all targets-->
 	
 	<!-- <window width="480" height="640" fps="60" background="#424549" hardware="true" vsync="false" /> -->
-	<window width="960" height="720" fps="60" background="#000000" hardware="true" vsync="false" />
+	<window allow-shaders="false" require-shaders="false" width="960" height="720" fps="30" background="#000000" hardware="true" vsync="false" />
 
 	<!--HTML5-specific-->
 	<window if="html5" resizable="true" />
@@ -35,7 +35,7 @@
 
 	<classpath name="source" />
 
-	<assets path="assets" preload="true" />
+	<assets path="assetshq" rename="assets" preload="true" />
 	
 	<!-- <assets path="fonts" embed="true" /> -->
 
@@ -45,15 +45,15 @@
 	<haxedev set='webgl' />
 
 	<!--In case you want to use the addons package-->
-	<haxelib name="flixel-addons" />
+	<!-- <haxelib name="flixel-addons" /> -->
 
 	<!--In case you want to use the ui package-->
-	<haxelib name="flixel-ui" />
+	<!-- <haxelib name="flixel-ui" /> -->
 
 	<!--In case you want to use nape with flixel-->
 	<!-- <haxelib name="nape-haxe4" /> -->
 	
-	<haxelib name="format" />
+	<!-- <haxelib name="format" /> -->
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
 

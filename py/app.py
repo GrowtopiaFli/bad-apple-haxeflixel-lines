@@ -2,8 +2,9 @@ import json
 from json import JSONEncoder
 import cv2
 from array import *
-import colorsys
+# import colorsys
 import numpy as np
+import time
 
 class NumpyArrayEncoder(JSONEncoder):
     def default(self, obj):
@@ -27,7 +28,9 @@ while True:
         mask = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
         # mask = cv2.inRange(frame, np.array([20, 20, 20]), np.array([255, 255, 255]))
         
+        # (thres, mask) = cv2.threshold(mask, 50, 255, 0)
         (thres, mask) = cv2.threshold(mask, 50, 255, 0)
+        # contours, hierarchy = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
         contours, hierarchy = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
         # frame = np.zeros((720,960,3), np.uint8)
 
@@ -35,7 +38,7 @@ while True:
 
         for cnt in contours:
             #approx = cv2.approxPolyDP(cnt, 0.009 * cv2.arcLength(cnt, True), True)
-            approx = cv2.approxPolyDP(cnt, 0.001 * cv2.arcLength(cnt, True), True)
+            approx = cv2.approxPolyDP(cnt, 0.0007 * cv2.arcLength(cnt, True), True)
             cv2.drawContours(frame, [approx], 0, [0, 0, 255], 4) 
             #cv2.drawContours(frame, contours, -1, [col[2], col[1], col[0]], 4)
 
@@ -67,8 +70,9 @@ while True:
         binData += contourArr
         
         cv2.imshow("Video", frame)
-        i += 1
+        cv2.imshow("Mask", mask)
         print(str(i) + " / " + str(frames))
+        i += 1
     else:
         break
     if cv2.waitKey(10) == 27:
